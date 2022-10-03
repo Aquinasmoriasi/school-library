@@ -1,14 +1,12 @@
-require_relative './person.rb'
+require_relative './person'
 
 class Student < Person
-    def initialize(classroom)
-        super("unkown")
-        @classroom = classroom
-    end
-    def play_hooky
-        "¯\(ツ)/¯"
-    end
-end
+  def initialize(classroom)
+    super(age)
+    @classroom = classroom
+  end
 
-x=Student.new("History")
-puts(x.play_hooky)
+  def play_hooky
+    "¯\(ツ)/¯"
+  end
+end
