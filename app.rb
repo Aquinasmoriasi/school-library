@@ -62,17 +62,22 @@ class App
   end
 
   def list_rentals
-    puts 'No rentals yet' if @rentals.empty?
+    if @rentals.empty?
+      puts 'No rentals yet'
+    else
+      puts 'Enter person ID'
+      person_id = gets.chomp.to_i
+      rented = @rentals.filter { |rental| rental.person.id == person_id }
 
-    puts 'Enter person ID' unless @rentals.empty?
-    person_id = gets.chomp.to_i unless @rentals.empty?
-    rented = @rentals.filter { |rental| rental.person.id == person_id }
-
-    puts 'The person has not rented any books yet' if rented.empty?
-    puts "\nID of person: #{person_id}" unless rented.empty?
-    puts 'Rentals: ' unless rented.empty?
-    rented.each do |rental|
-      puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+      if rented.empty?
+        puts 'The person has not rented any books yet'
+      else
+        puts "\nID of person: #{person_id}"
+        puts 'Rentals: '
+        rented.each do |rental|
+          puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+        end
+      end
     end
   end
 
