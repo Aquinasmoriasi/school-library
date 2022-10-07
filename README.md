@@ -5,9 +5,10 @@
    Ruby
 
 ## Getting Started
+
     - Clone the repository (https://github.com/Aquinasmoriasi/school-library.git)
     - Navigate to the cloned repository
-    - Open terminal and write ``` ruby main.rb ``` to get the app started
+    - Open terminal and write `ruby main.rb` to get the app started
     - Choose the displayed options to use the app
 
 ### Pre-requsite
