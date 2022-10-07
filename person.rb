@@ -7,7 +7,7 @@ class Person
   attr_accessor :name, :age
 
   def initialize(age, name)
-    @id = Random.rand(1..100_000)
+    @id = Random.rand(1..1000)
     @name = name
     @age = age
     @rentals = []

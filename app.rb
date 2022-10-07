@@ -20,13 +20,7 @@ class App
   def list_people
     puts 'No person added yet' if @all_people.empty?
     @all_people.each do |person|
-      person.rentals
-      unless person.is_a? Teacher
-        puts "[Student] Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"
-      end
-      unless person.is_a? Student
-        puts "[Teacher] Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"
-      end
+      puts "[#{person.class}] Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"
     end
   end
 
@@ -56,27 +50,28 @@ class App
     book = @all_books[selected_book]
     puts 'Select a person from the following list by number (not id)'
     @all_people.each_with_index do |person, index|
-      unless person.is_a? Teacher
-        puts "#{index}) [Student] Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"
-      end
-      unless person.is_a? Student
-        puts "#{index}) [Teacher] Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"
-      end
+      puts "#{index}) [#{person.class}] Name: \"#{person.name}\", ID: #{person.id}, Age: #{person.age}"
     end
-     selected_person = gets.chomp.to_i
-      person = @all_people[selected_person]
-      date = Time.now.strftime('%Y/%m/%d')
-      puts "Date: #{date}"
-      rental = Rental.new(date, book, person)
-      @rentals << rental
-    puts "Book rented successfully"
+    selected_person = gets.chomp.to_i
+    person = @all_people[selected_person]
+    date = Time.now.strftime('%Y/%m/%d')
+    puts "Date: #{date}"
+    rental = Rental.new(date, book, person)
+    @rentals << rental
+    puts 'Book rented successfully'
   end
 
   def list_rentals
     puts 'No rentals yet' if @rentals.empty?
-    @rentals.each do |rental|
-      puts "ID of person: #{rental.person.id}"
-      puts 'Rentals: '
+
+    puts 'Enter person ID' unless @rentals.empty?
+    person_id = gets.chomp.to_i unless @rentals.empty?
+    rented = @rentals.filter { |rental| rental.person.id == person_id }
+
+    puts 'The person has not rented any books yet' if rented.empty?
+    puts "\nID of person: #{person_id}" unless rented.empty?
+    puts 'Rentals: ' unless rented.empty?
+    rented.each do |rental|
       puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
     end
   end

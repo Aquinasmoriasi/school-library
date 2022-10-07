@@ -1,12 +1,11 @@
 require_relative './person'
 
 class Student < Person
-  attr_accessor :age, :name, :parent_permission, :classroom
+  attr_reader :classroom
+  attr_accessor :age, :name, :parent_permission
 
   def initialize(age, name, parent_permission)
     super(age, name)
-    @age = age
-    @name = name
     @parent_permission = parent_permission
     @classroom = ''
   end
@@ -23,6 +22,7 @@ class Student < Person
     @classroom = classroom
     classroom.students << self unless classroom.students.include?(self)
   end
+
   private
 
   def of_age?
